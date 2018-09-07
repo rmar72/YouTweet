@@ -22,7 +22,7 @@ router.post("/register", token_auth.optional, (req, res) => {
                 const finalUser = new User(user);
                 finalUser.setPassword(user.password);
                 return finalUser.save()
-                        .then(() => res.json({userSaved: true}));
+                        .then(() => res.json({user: finalUser.toAuthJSON() }));
             }
         }
     });
