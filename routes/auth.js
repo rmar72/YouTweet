@@ -2,8 +2,9 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const router = require("express").Router();
 const User =  mongoose.model('User');
+const token_auth = require("../config/token_auth");
 
-router.post("/register", (req, res) => {
+router.post("/register", token_auth.optional, (req, res) => {
     const {user} = req.body;
 
     const missingField = fieldsProbe(user, res);
@@ -29,23 +30,8 @@ router.post("/register", (req, res) => {
 });
 
 
-router.post("/login", (req, res) => {
-    const {user} = req.body;
+router.post("/login", token_auth.optional, (req, res) => {
     
-    const missingField = fieldsProbe(user, res);
-    if(missingField){
-        return missingField;
-    }
-
-    User.findOne({email: user.email}, (err, userDoc) => {
-        if(err){
-            res.status(500).send('db/server error occured')
-        } else {
-            console.log(userDoc.salt)
-           return res.json( userDoc.validatePassword(user.password) )
-        }
-    });
-
 });
 
 function fieldsProbe(user, res){
