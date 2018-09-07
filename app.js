@@ -10,6 +10,8 @@ const mongoose = require("mongoose");
 mongoose.promise = global.Promise;
 mongoose.connect("mongodb://localhost/youtweet");
 
+require('./config/passport');
+
 app.use(require('morgan')('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
