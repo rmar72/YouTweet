@@ -25,7 +25,7 @@ app.use(session({
 
 
 
+app.get('/', (req, res) => res.send('The world is my oyster.'));
+app.use(require('./routes'));
 
-app.get('/', (req, res) => res.send('The world is my oyster.'))
-
-app.listen(3000, () => console.log('Serving on port 3000!'))
+app.listen(3000, () => console.log('Serving on port 3000!'));
