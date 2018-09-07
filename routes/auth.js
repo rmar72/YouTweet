@@ -37,6 +37,14 @@ router.post("/login", (req, res) => {
         return missingField;
     }
 
+    User.findOne({email: user.email}, (err, userDoc) => {
+        if(err){
+            res.status(500).send('db/server error occured')
+        } else {
+            console.log(userDoc.salt)
+           return res.json( userDoc.validatePassword(user.password) )
+        }
+    });
 
 });
 
