@@ -9,8 +9,7 @@ const mongoose = require("mongoose");
 // Db setup
 mongoose.promise = global.Promise;
 mongoose.connect("mongodb://localhost/youtweet");
-
-require('./config/passport');
+mongoose.set('debug', true);
 
 app.use(require('morgan')('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
@@ -23,6 +22,8 @@ app.use(session({
     saveUninitialized: false
 }));
 
+require('./models/User');
+require('./config/passport');
 
 
 app.get('/', (req, res) => res.send('The world is my oyster.'));
