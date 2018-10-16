@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+const cors = require('cors');
 
 // Db setup
 mongoose.promise = global.Promise;
@@ -14,6 +15,7 @@ mongoose.set('debug', true);
 app.use(require('morgan')('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(cors());
 
 app.use(session({
     secret: 's',
